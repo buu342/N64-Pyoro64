@@ -1,0 +1,2 @@
+This file does nothing, it's only occupying space so that GitHub doesn't delete this folder, therefore you can delete it with no problems.
+During compilation, object files will be moved in here which the final makefile will grab from and compile with.
