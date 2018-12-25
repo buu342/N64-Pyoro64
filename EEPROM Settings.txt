@@ -1,0 +1,27 @@
+BYTE 1
+1 PLAYER MODE   2 PLAYER MODE
+XXXXXXX0        XXXXXXX1
+
+-----------------------------------------------------------
+
+BYTE 2
+SOUND MAX       SOUND OFF
+XXXX0000        XXXX0000
+
+MUSIC MAX       MUSIC OFF
+0000XXXX        1111XXXX
+
+-----------------------------------------------------------
+
+BYTE 3
+CONTROLS P1
+A               B               Z               R/L
+XXXXXX00        XXXXXX01        XXXXXX10        XXXXXX11
+Stick           D PAD           C PAD           R/L
+XXXX00XX        XXXX01XX        XXXX10XX        XXXX11XX
+
+CONTROLS P2
+A               B               Z               R/L
+XX00XXXX        XX01XXXX        XX10XXXX        XX11XXXX
+Stick           D PAD           C PAD           R/L
+00XXXXXX        01XXXXXX        10XXXXXX        11XXXXXX
