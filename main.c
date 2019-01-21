@@ -35,6 +35,7 @@ u8 GameSpeed;
 
 // Game saves
 char global_eeprom_loaded;
+u8 global_save_magic[8]; // Check "EEPROM Magic.txt" for how data is stored
 u8 global_save_unlocks[8]; // Check "EEPROM Unlocks.txt" for how data is stored
 u8 global_save_settings[8]; // Check "EEPROM Settings.txt" for how data is stored
 u8 global_save_highscores[8]; // Check "EEPROM Highscores.txt" for how data is stored
@@ -109,7 +110,16 @@ void mainproc(void * dummy)
     // Overwrite the default save if we have an EEPROM
     if (nuEepromCheck() == EEPROM_TYPE_4K || nuEepromCheck() == EEPROM_TYPE_16K)
     {
+        // Tell the game that we managed to read the EEPROM
         global_eeprom_loaded = 1;
+        
+        // If our magic value isn't correct, then our EEPROM needs to be reset
+        nuEepromRead(SAVESLOT_MAGIC, global_save_magic, 1);
+        if (global_save_magic[0] != 342/2)
+            SetDefaultSave();
+        
+        // Read the saved data
+        nuEepromRead(SAVESLOT_MAGIC, global_save_magic, 1);
         nuEepromRead(SAVESLOT_UNLOCKS, global_save_unlocks, 1);
         nuEepromRead(SAVESLOT_SETTINGS, global_save_settings, 1);
         nuEepromRead(SAVESLOT_HIGHSCORES, global_save_highscores, 1);

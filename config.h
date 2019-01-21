@@ -39,9 +39,10 @@
     #define TEXT_VALIGN_BOTTOM 2
     
     // Save defines
-    #define SAVESLOT_UNLOCKS 0
-    #define SAVESLOT_SETTINGS 1
-    #define SAVESLOT_HIGHSCORES 2
+    #define SAVESLOT_MAGIC 0
+    #define SAVESLOT_UNLOCKS 1
+    #define SAVESLOT_SETTINGS 2
+    #define SAVESLOT_HIGHSCORES 3
     
     #define SAVE_UNLOCK_PYORO2 0
     
@@ -75,6 +76,7 @@
     extern unsigned short* global_text_tlut;
     extern char global_text_alpha;
     
+    extern u8 global_save_magic[];
     extern u8 global_save_unlocks[];
     extern u8 global_save_settings[];
     extern u8 global_save_highscores[];

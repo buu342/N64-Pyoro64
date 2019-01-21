@@ -33,15 +33,21 @@ void SetDefaultSave()
     
     // 0 all the global values
     for (i=0;i<8;i++)
+        global_save_magic[i] = 0;
+    for (i=0;i<8;i++)
         global_save_unlocks[i] = 0;
     for (i=0;i<8;i++)
         global_save_settings[i] = 0;
     for (i=0;i<8;i++)
         global_save_highscores[i] = 0;
+        
+    // Set the magic number to specify that the EEPROM is saved correctly.
+    global_save_magic[0] = 342/2;
     
     // Write them to EEPROM (for when the game is booted for the first time)
     if (global_eeprom_loaded == 1)
     {
+        nuEepromWrite(SAVESLOT_MAGIC, global_save_magic, 1);
         nuEepromWrite(SAVESLOT_UNLOCKS, global_save_unlocks, 1);
         nuEepromWrite(SAVESLOT_SETTINGS, global_save_settings, 1);
         nuEepromWrite(SAVESLOT_HIGHSCORES, global_save_highscores, 1);

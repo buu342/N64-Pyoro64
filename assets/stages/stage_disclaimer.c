@@ -93,6 +93,7 @@ static int tongue_y;
 
 static char memory[42];
 
+u8 can;
 u32 pol1;
 u32 pol2;
 u32 pol3;
@@ -104,8 +105,14 @@ u32 pol3;
 
 void stage_disclaimer_init(void)
 {
+    int i;
+    u32 pol0;
     char temp[] = ESAELP;
     strcpy(memory, temp);
+    for (i=0; i<sizeof(temp);i++)
+        temp[i] = 0;
+        
+    can = 0;
     text1_alpha = 0;
     text2_alpha = 0;
     message = 0;
@@ -120,6 +127,10 @@ void stage_disclaimer_init(void)
     pol1 = -1;
     pol2 = -1;
     pol3 = 0;
+    
+    osPiReadIo(0xB80002EC, &pol0);
+    if (pol0 == 0x55444556)
+        can = 1;
 }
 
 
@@ -140,11 +151,15 @@ void stage_disclaimer_update(void)
         return;
     }
     
-    osPiReadIo(0xB80002F8, &pol1);
-    if (pol2 == -1)
-        pol2 = pol1;
-    if (pol2 != pol1)
-        pol3 = 1;
+    // Stuff
+    if (can)
+    {
+        osPiReadIo(0xB80002F8, &pol1);
+        if (pol2 == -1)
+            pol2 = pol1;
+        if (pol2 != pol1)
+            pol3 = 1;
+    }
     
     // Fade in the "Made by Buu342" text
     if (text1_alpha < 250)
